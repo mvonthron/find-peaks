@@ -14,15 +14,12 @@ except ImportError:
 import matplotlib
 matplotlib.use('Qt4Agg')
 matplotlib.rcParams['backend.qt4']='PySide'
-import pylab
+from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 from scipy.signal import find_peaks_cwt
 import numpy as np
 
-from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
-
-from PySide import QtCore, QtGui
 from mainwindow import Ui_MainWindow
 
 
