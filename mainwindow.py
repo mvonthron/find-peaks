@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Mon Mar 17 21:33:50 2014
+# Created: Mon Mar 17 22:47:14 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -19,6 +19,13 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.verticalLayout = QtGui.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
+        self.fileButton = QtGui.QPushButton(self.centralWidget)
+        self.fileButton.setObjectName("fileButton")
+        self.verticalLayout.addWidget(self.fileButton)
+        self.filenameLabel = QtGui.QLabel(self.centralWidget)
+        self.filenameLabel.setText("")
+        self.filenameLabel.setObjectName("filenameLabel")
+        self.verticalLayout.addWidget(self.filenameLabel)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
         self.label = QtGui.QLabel(self.centralWidget)
@@ -40,32 +47,38 @@ class Ui_MainWindow(object):
         self.canvasLayout = QtGui.QHBoxLayout()
         self.canvasLayout.setObjectName("canvasLayout")
         self.horizontalLayout_2.addLayout(self.canvasLayout)
-        self.peaksText = QtGui.QTextEdit(self.centralWidget)
+        self.rightLayout = QtGui.QVBoxLayout()
+        self.rightLayout.setSizeConstraint(QtGui.QLayout.SetDefaultConstraint)
+        self.rightLayout.setObjectName("rightLayout")
+        self.peaksText = QtGui.QPlainTextEdit(self.centralWidget)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(200)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.peaksText.sizePolicy().hasHeightForWidth())
+        self.peaksText.setSizePolicy(sizePolicy)
+        self.peaksText.setMinimumSize(QtCore.QSize(200, 0))
         self.peaksText.setObjectName("peaksText")
-        self.horizontalLayout_2.addWidget(self.peaksText)
+        self.rightLayout.addWidget(self.peaksText)
+        self.saveButton = QtGui.QPushButton(self.centralWidget)
+        self.saveButton.setObjectName("saveButton")
+        self.rightLayout.addWidget(self.saveButton)
+        self.horizontalLayout_2.addLayout(self.rightLayout)
         MainWindow.setCentralWidget(self.centralWidget)
         self.statusBar = QtGui.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
         MainWindow.setStatusBar(self.statusBar)
-        self.menuBar = QtGui.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 928, 27))
-        self.menuBar.setObjectName("menuBar")
-        self.menuFile = QtGui.QMenu(self.menuBar)
-        self.menuFile.setObjectName("menuFile")
-        MainWindow.setMenuBar(self.menuBar)
         self.actionOpen = QtGui.QAction(MainWindow)
         self.actionOpen.setObjectName("actionOpen")
-        self.menuFile.addAction(self.actionOpen)
-        self.menuBar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "Signal peak", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("MainWindow", "Min", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_2.setText(QtGui.QApplication.translate("MainWindow", "Max", None, QtGui.QApplication.UnicodeUTF8))
+        self.fileButton.setText(QtGui.QApplication.translate("MainWindow", "Open file...", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("MainWindow", "Min width", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_2.setText(QtGui.QApplication.translate("MainWindow", "Max width", None, QtGui.QApplication.UnicodeUTF8))
         self.findPeakButton.setText(QtGui.QApplication.translate("MainWindow", "I\'m so late find them! ", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
+        self.saveButton.setText(QtGui.QApplication.translate("MainWindow", "Save...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen.setText(QtGui.QApplication.translate("MainWindow", "Open...", None, QtGui.QApplication.UnicodeUTF8))
 

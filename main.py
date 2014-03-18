@@ -35,31 +35,57 @@ class MainWindow(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
-        self.ui.findPeakButton.clicked.connect(self.update)
+        self.ui.findPeakButton.clicked.connect(self.findPeaksCallback)
+        self.ui.fileButton.clicked.connect(self.loadFileCallback)
+        self.ui.saveButton.clicked.connect(self.savePeaksCallback)
 
     def addPlot(self):
         self.fig = Figure(figsize=(600, 600), dpi=72, facecolor=(1,1,1), edgecolor=(0,0,0))
         self.ax = self.fig.add_subplot(111)
         self.canvas = FigureCanvas(self.fig)
         self.ui.canvasLayout.addWidget(self.canvas)
-        
-    def update(self):
-        self.peaks.setMinMax( int(self.ui.minEntry.text()), int(self.ui.maxEntry.text()) )
-        self.peaks.findPeaks()
 
+    def loadFileCallback(self):
+        filename, _ = QtGui.QFileDialog.getOpenFileName(self, 'Open data file',)
+
+        if filename:
+            self.peaks.load(filename)
+            self.update()
+
+            self.ui.filenameLabel.setText("File: %s" % os.path.split(filename)[-1])
+            self.ui.statusBar.showMessage("File opened: %s" % os.path.split(filename)[-1])
+
+    def findPeaksCallback(self):
+        self.peaks.setMinMax( int(self.ui.minEntry.text()), int(self.ui.maxEntry.text()) )
+        self.ui.statusBar.showMessage("Calculating peaks")
+        self.peaks.findPeaks()
+        self.update()
+        self.ui.statusBar.showMessage("Calculation done")
+
+    def savePeaksCallback(self):
+        filename, _ = QtGui.QFileDialog.getSaveFileName(self, 'Save peaks to',)
+        if filename:
+            with open(filename, 'w') as f:
+                f.write(self.ui.peaksText.toPlainText())
+
+            self.ui.statusBar.showMessage("Peaks saved to: %s" % os.path.split(filename)[-1])
+
+    def update(self):
         self.ax.cla()
 
         self.ax.plot(self.peaks.x, self.peaks.y)
-        self.ax.plot(self.peaks.peaks, [self.peaks.y[i-1] for i in self.peaks.peaks], 'ro')
+        if self.peaks.peaks:
+            self.ax.plot(self.peaks.peaks, [self.peaks.y[i] for i in self.peaks.peaks], 'ro')
+
+            self.ui.peaksText.setPlainText("\n".join(["%s; %s" % (p, v) for p, v in zip(self.peaks.peaks, [self.peaks.y[i] for i in self.peaks.peaks])]))
 
         self.canvas.draw()
-        print type(self.peaks.peaks)
 
-        self.ui.peaksText.setText("\n".join([str(p) for p in self.peaks.peaks]))
 
 class peaksFinder(object):
-    def __init__(self, filename):
-        self.load(filename)
+    def __init__(self, filename=None):
+        if filename:
+            self.load(filename)
 
         self.minWidth = 1
         self.maxWidth = 10
@@ -71,6 +97,8 @@ class peaksFinder(object):
 
         self.x = [row[0] for row in self.data]
         self.y = [row[1] for row in self.data]
+
+        self.peaks = None
 
     def setMinMax(self, min=None, max=None):
         if min:
@@ -87,9 +115,7 @@ if __name__ == '__main__':
     app.connect(app, QtCore.SIGNAL("lastWindowClosed()"),
                 app, QtCore.SLOT("quit()"))
 
-
-    FILE = "data/essai_11"
-    peaks = peaksFinder(FILE)
+    peaks = peaksFinder()
 
     win = MainWindow(peaks)
     win.addPlot()
