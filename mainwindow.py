@@ -44,7 +44,7 @@ class Ui_MainWindow(object):
         self.findPeakButton.setObjectName("findPeakButton")
         self.verticalLayout.addWidget(self.findPeakButton)
         self.horizontalLayout_2.addLayout(self.verticalLayout)
-        self.canvasLayout = QtGui.QHBoxLayout()
+        self.canvasLayout = QtGui.QVBoxLayout()
         self.canvasLayout.setObjectName("canvasLayout")
         self.horizontalLayout_2.addLayout(self.canvasLayout)
         self.rightLayout = QtGui.QVBoxLayout()

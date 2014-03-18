@@ -15,6 +15,7 @@ import matplotlib
 matplotlib.use('Qt4Agg')
 matplotlib.rcParams['backend.qt4']='PySide'
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 
 from scipy.signal import find_peaks_cwt
@@ -31,7 +32,7 @@ class MainWindow(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        
+
         self.ui.findPeakButton.clicked.connect(self.findPeaksCallback)
         self.ui.fileButton.clicked.connect(self.loadFileCallback)
         self.ui.saveButton.clicked.connect(self.savePeaksCallback)
@@ -41,6 +42,11 @@ class MainWindow(QtGui.QMainWindow):
         self.ax = self.fig.add_subplot(111)
         self.canvas = FigureCanvas(self.fig)
         self.ui.canvasLayout.addWidget(self.canvas)
+
+
+        self.navi_toolbar = NavigationToolbar(self.canvas, self)
+        self.ui.canvasLayout.addWidget(self.navi_toolbar)
+
 
     def loadFileCallback(self):
         filename, _ = QtGui.QFileDialog.getOpenFileName(self, 'Open data file',)
