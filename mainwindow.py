@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Mon Mar 17 22:47:14 2014
+# Created: Tue Mar 18 22:55:23 2014
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -32,6 +32,7 @@ class Ui_MainWindow(object):
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
         self.minEntry = QtGui.QSpinBox(self.centralWidget)
+        self.minEntry.setMinimumSize(QtCore.QSize(120, 0))
         self.minEntry.setObjectName("minEntry")
         self.verticalLayout.addWidget(self.minEntry)
         self.label_2 = QtGui.QLabel(self.centralWidget)
@@ -78,7 +79,7 @@ class Ui_MainWindow(object):
         self.fileButton.setText(QtGui.QApplication.translate("MainWindow", "Open file...", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MainWindow", "Min width", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "Max width", None, QtGui.QApplication.UnicodeUTF8))
-        self.findPeakButton.setText(QtGui.QApplication.translate("MainWindow", "I\'m so late find them! ", None, QtGui.QApplication.UnicodeUTF8))
+        self.findPeakButton.setText(QtGui.QApplication.translate("MainWindow", "Find peaks", None, QtGui.QApplication.UnicodeUTF8))
         self.saveButton.setText(QtGui.QApplication.translate("MainWindow", "Save...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionOpen.setText(QtGui.QApplication.translate("MainWindow", "Open...", None, QtGui.QApplication.UnicodeUTF8))
 

@@ -52,7 +52,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="minEntry"/>
+       <widget class="QSpinBox" name="minEntry">
+        <property name="minimumSize">
+         <size>
+          <width>120</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_2">
@@ -67,14 +74,14 @@
       <item>
        <widget class="QPushButton" name="findPeakButton">
         <property name="text">
-         <string>I'm so late find them! </string>
+         <string>Find peaks</string>
         </property>
        </widget>
       </item>
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="canvasLayout"/>
+     <layout class="QVBoxLayout" name="canvasLayout"/>
     </item>
     <item>
      <layout class="QVBoxLayout" name="rightLayout">
